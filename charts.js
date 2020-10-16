@@ -74,6 +74,7 @@ function buildCharts(sample) {
     var sampleValues = firstSample.sample_values;
     console.log(otuIds);
     console.log(otuLabels);
+    //console.log("hello");
     console.log(sampleValues);
 
     // 7. Create the yticks for the bar chart.
@@ -82,7 +83,7 @@ function buildCharts(sample) {
 
     var yticks = otuIds.slice(0,10).map(id => "OTU " + id).reverse();
     console.log(yticks);
-
+    
     // 8. Create the trace for the bar chart. 
     var barData = [{
       x: sampleValues.slice(0,10).reverse(),
@@ -98,7 +99,39 @@ function buildCharts(sample) {
         ticktext: yticks
       }
     };
+    //console.log("hello");
     // 10. Use Plotly to plot the data with the layout. 
     Plotly.newPlot("bar", barData, barLayout);
+
+    // Bar and Bubble charts
+    // Create the buildCharts function.
+    //function buildCharts(sample) {
+    // Use d3.json to load and retrieve the samples.json file 
+    //d3.json("samples.json").then((data) => {
+
+    // 1. Create the trace for the bubble chart.
+    var bubbleData = [{
+      x: otuIds,
+      y: sampleValues,
+      text: otuLabels,
+      mode: 'markers',
+      marker: {
+        size: sampleValues,
+        color: otuIds,
+        colorscale: "Earth"
+      }
+    }];
+    console.log(bubbleData);
+    // 2. Create the layout for the bubble chart.
+    var bubbleLayout = {
+      title: 'Bacteria Cultures Per Sample',
+      showlegend: false,
+      xaxis: {title: "OTU ID"}
+    };
+    console.log(bubbleLayout);
+    // 3. Use Plotly to plot the data with the layout.
+    Plotly.newPlot("bubble", bubbleData, bubbleLayout);
+    //});
+  //}
   });
 }
