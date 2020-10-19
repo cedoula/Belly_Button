@@ -136,25 +136,12 @@ function buildCharts(sample) {
     var bubbleLayout = {
       title: 'Bacteria Cultures Per Sample',
       showlegend: false,
-      xaxis: {title: "OTU ID"}, //automargin: true},
-      //yaxis: {automargin: true},
+      xaxis: {title: "OTU ID", automargin: true},
+      yaxis: {automargin: true},
       //margin: { t: 50, r: 50, l: 50, b: 50 },
-      hovermode: "closest",
-      annotations: [{
-        xref: 'paper',
-        yref: 'paper',
-        x: 0.5,
-        //xanchor: 'center',
-        y: 0,
-        //yanchor: 'center',
-        text: "annotation for the graph",
-        showarrow: false
-      }]
+      hovermode: "closest"
     };
     console.log(bubbleLayout);
-
-    // variable for responsiveness of graph
-    //var config = {responsive: true};
 
     // 3. Use Plotly to plot the data with the layout.
     Plotly.newPlot("bubble", bubbleData, bubbleLayout, {responsive: true});
@@ -195,19 +182,19 @@ function buildCharts(sample) {
     // 5. Create the layout for the gauge chart.
     var gaugeLayout = { 
       autosize: true,
-      //height: auto
+      annotations: [{
+        xref: 'paper',
+        yref: 'paper',
+        x: 0.5,
+        xanchor: 'center',
+        y: 0,
+        yanchor: 'center',
+        text: "The gauge displays your belly button weekly washing frequency",
+        showarrow: false
+      }]
     };
 
     // 6. Use Plotly to plot the gauge data and layout.
     Plotly.newPlot("gauge", gaugeData, gaugeLayout, {responsive: true});
   });
 }
-
-// update the layout to expand to the available size
-// when the window is resized
-//window.onresize = function() {
-//  Plotly.relayout("bubble", {
-//    'xaxis.autorange': true,
-//    'yaxis.autorange': true
-//  });
-//};
