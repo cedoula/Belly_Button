@@ -97,11 +97,21 @@ function buildCharts(sample) {
         tickmode: "array",
         tickvals: [0,1,2,3,4,5,6,7,8,9],
         ticktext: yticks
-      }
+      },
+      annotations: [{
+        xref: 'paper',
+        yref: 'paper',
+        x: 0.5,
+        xanchor: 'center',
+        y: -0.25,
+        yanchor: 'center',
+        text: 'The bar chart displays the top 10 bacterial species (OTUs)<br>with the number of samples found in your belly button',
+        showarrow: false
+      }]
     };
     //console.log("hello");
     // 10. Use Plotly to plot the data with the layout. 
-    Plotly.newPlot("bar", barData, barLayout);
+    Plotly.newPlot("bar", barData, barLayout, {responsive: true});
 
     // Bar and Bubble charts
     // Create the buildCharts function.
@@ -126,14 +136,28 @@ function buildCharts(sample) {
     var bubbleLayout = {
       title: 'Bacteria Cultures Per Sample',
       showlegend: false,
-      xaxis: {title: "OTU ID", automargin: true},
-      yaxis: {automargin: true},
+      xaxis: {title: "OTU ID"}, //automargin: true},
+      //yaxis: {automargin: true},
       //margin: { t: 50, r: 50, l: 50, b: 50 },
-      hovermode: "closest"
+      hovermode: "closest",
+      annotations: [{
+        xref: 'paper',
+        yref: 'paper',
+        x: 0.5,
+        //xanchor: 'center',
+        y: 0,
+        //yanchor: 'center',
+        text: "annotation for the graph",
+        showarrow: false
+      }]
     };
     console.log(bubbleLayout);
+
+    // variable for responsiveness of graph
+    //var config = {responsive: true};
+
     // 3. Use Plotly to plot the data with the layout.
-    Plotly.newPlot("bubble", bubbleData, bubbleLayout);
+    Plotly.newPlot("bubble", bubbleData, bubbleLayout, {responsive: true});
 
     // 1. Create a variable that filters the metadata array for the object with the desired sample number.
     var metadata_SelId = data.metadata.filter(data => data.id == sample);
@@ -170,11 +194,20 @@ function buildCharts(sample) {
     
     // 5. Create the layout for the gauge chart.
     var gaugeLayout = { 
-      width: 1500,
-      height: 1500
+      autosize: true,
+      //height: auto
     };
 
     // 6. Use Plotly to plot the gauge data and layout.
-    Plotly.newPlot("gauge", gaugeData);
+    Plotly.newPlot("gauge", gaugeData, gaugeLayout, {responsive: true});
   });
 }
+
+// update the layout to expand to the available size
+// when the window is resized
+//window.onresize = function() {
+//  Plotly.relayout("bubble", {
+//    'xaxis.autorange': true,
+//    'yaxis.autorange': true
+//  });
+//};
